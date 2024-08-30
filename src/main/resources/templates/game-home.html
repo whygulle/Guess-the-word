@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Guess the word</title>
+
+	<script th:inline="javascript">
+
+		window.onload = function gameOver() {
+
+			var numberOfTriesRemaining = [[${triesLeft}]];
+
+
+			if (numberOfTriesRemaining === 0) {
+				alert("Game over");
+				document.getElementById('guessedChar').disabled = true;
+				document.getElementById('try').disabled = true;
+			}
+		}
+
+		function reloadGame() {
+			window.location.href = "http://localhost:8080/reload"
+		}
+	</script>
+	
+	<style>
+		body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffe4e1; /* Light pink background */
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #ff4500; /* OrangeRed */
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #4169e1; /* RoyalBlue */
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background-color: #ff6347; /* Tomato */
+    margin: 20px 0;
+}
+
+#reload {
+    float: right;
+    background-color: #32cd32; /* LimeGreen */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#reload:hover {
+    background-color: #228b22; /* ForestGreen */
+}
+
+#guess {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #8a2be2; /* BlueViolet */
+}
+
+#guessedChar {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid #8b008b; /* DarkMagenta */
+}
+
+#try {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #ff69b4; /* HotPink */
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#try:hover {
+    background-color: #c71585; /* MediumVioletRed */
+}
+
+form {
+    margin-top: 20px;
+}
+
+div {
+    margin: 20px auto;
+    width: 300px;
+}
+	</style>
+</head>
+
+<body>
+	<h1 align="center">Guess The Word</h1>
+	<h2 align="center" th:text="${wordToDisplay}"></h2>
+
+	<h2 align="right" th:text="'Tries remaining : '+ ${triesLeft}"> Show the number of tries left </h2>
+
+	<hr>
+	
+	<input type="button" value="Reload" id="reload" style="float: right; background-color: green;"
+		onclick="reloadGame();" />
+		
+		
+	<div align="center">
+		<form action="game-home" method="get">
+			<label id="guess">Guess a char</label>
+			<input type="text" name="guessedChar" id="guessedChar" />
+			<input type="submit" value="try" id="try" />
+		</form>
+	</div>
+
+</body>
+
+
+</html>
